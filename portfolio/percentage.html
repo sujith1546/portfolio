@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Showcase</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* Glassmorphism Design */
+    .skills-section {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 2rem;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .skills-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      font-weight: 600;
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .filters button {
+      padding: 10px 20px;
+      border: none;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .filters button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    /* Skill Card */
+    .skill-card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .skill-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: #3498db;
+    }
+
+    .skill-card h3 {
+      margin: 10px 0;
+      font-size: 1.5rem;
+      color: #2c3e50;
+    }
+
+    /* Star Rating */
+    .skill-level {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin: 15px 0;
+    }
+
+    .skill-level .star {
+      font-size: 24px;
+      color: #e0e0e0;
+      transition: color 0.3s ease;
+    }
+
+    .skill-level .star.filled {
+      color: #FFD700; /* Gold color for filled stars */
+    }
+
+    .skill-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Hidden Class */
+    .hidden {
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(135deg, #333, #555);
+      color: white;
+      margin-top: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2.5s ease-out;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <section class="skills-section">
+    <h1>My Skills Showcase</h1>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button onclick="filterSkills('all')">All</button>
+      <button onclick="filterSkills('technical')">Technical</button>
+      <button onclick="filterSkills('soft')">Soft</button>
+      <button onclick="filterSkills('design')">Design</button>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid" id="skillsGrid">
+      <!-- Technical Skills -->
+      <div class="skill-card technical">
+        <div class="skill-icon">💻</div>
+        <h3>C Programming</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Proficient in C programming for system-level development.</p>
+      </div>
+      <div class="skill-card technical">
+        <div class="skill-icon">🌐</div>
+        <h3>JavaScript</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+        </div>
+        <p>Expert in JavaScript for frontend and backend development.</p>
+      </div>
+      <div class="skill-card technical">
+        <div class="skill-icon">📊</div>
+        <h3>SQL</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Skilled in database management and querying using SQL.</p>
+      </div>
+      <div class="skill-card technical">
+        <div class="skill-icon">📈</div>
+        <h3>R Language</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Proficient in statistical analysis and data visualization using R.</p>
+      </div>
+      <div class="skill-card technical">
+        <div class="skill-icon">🌐</div>
+        <h3>Web Programming</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+        </div>
+        <p>Expertise in building dynamic and responsive web applications.</p>
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="skill-card soft">
+        <div class="skill-icon">🤝</div>
+        <h3>Communication</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+        </div>
+        <p>Strong verbal and written communication skills.</p>
+      </div>
+      <div class="skill-card soft">
+        <div class="skill-icon">👥</div>
+        <h3>Teamwork</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Collaborative team player with experience in cross-functional teams.</p>
+      </div>
+      <div class="skill-card soft">
+        <div class="skill-icon">💡</div>
+        <h3>Problem Solving</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Skilled in analyzing problems and finding effective solutions.</p>
+      </div>
+      <div class="skill-card soft">
+        <div class="skill-icon">⏰</div>
+        <h3>Time Management</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Efficient in managing time and prioritizing tasks effectively.</p>
+      </div>
+
+      <!-- Design Skills -->
+      <div class="skill-card design">
+        <div class="skill-icon">🖌️</div>
+        <h3>Graphic Design</h3>
+        <div class="skill-level">
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+        </div>
+        <p>Proficient in graphic design tools like Adobe Photoshop and Illustrator.</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+    </footer>
+  </section>
+
+  <script>
+    function filterSkills(category) {
+      const skills = document.querySelectorAll('.skill-card');
+      skills.forEach(skill => {
+        if (category === 'all' || skill.classList.contains(category)) {
+          skill.classList.remove('hidden');
+        } else {
+          skill.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

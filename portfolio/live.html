@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Changed to flex-start for scrollable content */
+      min-height: 100vh;
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    /* Glassmorphism Design */
+    .contact-section {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 2rem; /* Added margin for better spacing */
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contact-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      font-weight: 600;
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .contact-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #666;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Contact Details */
+    .contact-details {
+      margin-bottom: 2rem;
+      text-align: left;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .contact-details p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .contact-details i {
+      margin-right: 0.5rem;
+      color: #3498db;
+    }
+
+    /* Social Media Links */
+    .social-links {
+      margin-bottom: 2rem;
+      animation: fadeIn 2.5s ease-out;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 0 0.75rem;
+      color: #3498db;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px);
+      color: #2980b9;
+    }
+
+    /* Floating Label Form */
+    .contact-form {
+      animation: fadeIn 3s ease-out;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid rgba(52, 152, 219, 0.3);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      background: rgba(255, 255, 255, 0.9);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(52, 152, 219, 0.7);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #3498db;
+      background: rgba(255, 255, 255, 1);
+      outline: none;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.9rem;
+      color: rgba(52, 152, 219, 0.7);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .form-group input:focus ~ label,
+    .form-group input:not(:placeholder-shown) ~ label,
+    .form-group textarea:focus ~ label,
+    .form-group textarea:not(:placeholder-shown) ~ label {
+      top: -0.5rem;
+      left: 0.5rem;
+      font-size: 0.75rem;
+      color: #3498db;
+    }
+
+    /* Gradient Button */
+    .submit-btn {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Status Message */
+    .status-message {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .status-message.success {
+      color: #27ae60;
+    }
+
+    .status-message.error {
+      color: #e74c3c;
+    }
+
+    /* Google Map */
+    .map-container {
+      margin-top: 2rem;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 3.5s ease-out;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 200px;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <section class="contact-section">
+    <h2>Contact Me</h2>
+    <p>Feel free to reach out for collaborations or just a friendly hello!</p>
+
+    <!-- Contact Details -->
+    <div class="contact-details">
+      <p><i class="fas fa-user"></i>Thota Sujith Reddy</p>
+      <p><i class="fas fa-envelope"></i>sujithreddy1546@gmail.com</p>
+      <p><i class="fas fa-phone"></i>+91 85018 89996</p>
+      <p><i class="fas fa-map-marker-alt"></i>Vellore, India</p>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <!-- Contact Form -->
+    <form id="contact-form" class="contact-form">
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder=" " required>
+        <label for="name">Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">Email</label>
+      </div>
+      <div class="form-group">
+        <textarea id="message" name="message" placeholder=" " rows="5" required></textarea>
+        <label for="message">Message</label>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+    <div id="status-message" class="status-message"></div>
+
+    <!-- Google Map -->
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.818379678639!2d79.15584931482098!3d12.84089039093899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad479f0ccbe067%3A0xfef222e5f36ecdeb!2sVellore%20Institute%20of%20Technology%20(VIT)%20Vellore!5e0!3m2!1sen!2sin!4v1697040000000!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- JavaScript for Form Validation -->
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form submission
+
+      // Get form values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Simple validation
+      if (!name || !email || !message) {
+        showStatusMessage('Please fill out all fields.', 'error');
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        showStatusMessage('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      // Simulate form submission (replace with actual backend logic)
+      setTimeout(() => {
+        showStatusMessage('Message sent successfully!', 'success');
+        document.getElementById('contact-form').reset(); // Clear form
+      }, 1000);
+    });
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    function showStatusMessage(message, type) {
+      const statusMessage = document.getElementById('status-message');
+      statusMessage.textContent = message;
+      statusMessage.className = `status-message ${type}`;
+    }
+  </script>
+</body>
+</html>

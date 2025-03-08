@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certifications</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Glowing Particles Background */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Main Container */
+    .certifications-container {
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .header-section h1 {
+      font-size: 3.5rem;
+      color: #2c3e50;
+      position: relative;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .header-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #007bff, #ff7f50);
+      animation: slide 2s linear infinite;
+    }
+
+    /* Certification Cards */
+    .certification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .certification-card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: cardEnter 1s ease forwards;
+    }
+
+    .certification-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .certification-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,123,255,0.2), rgba(255,127,80,0.2));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .certification-card:hover::before {
+      opacity: 1;
+    }
+
+    .certification-card h3 {
+      font-size: 1.8rem;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .certification-card p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Interactive Buttons */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #007bff, #ff7f50);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .btn svg {
+      margin-left: 10px;
+      width: 20px;
+      height: 20px;
+      fill: white;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover svg {
+      transform: translateX(5px);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes cardEnter {
+      0% { transform: scale(0.8) translateY(50px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Animation Canvas -->
+  <canvas class="particles"></canvas>
+
+  <div class="certifications-container">
+    <div class="header-section">
+      <h1>Certifications</h1>
+    </div>
+
+    <div class="certification-grid">
+      <!-- Java Certification -->
+      <div class="certification-card" data-aos="fade-up">
+        <h3>Java Programming Certification</h3>
+        <p><strong>Issued by:</strong> Oracle</p>
+        <p><strong>Date:</strong> March 2023</p>
+        <button class="btn view-certificate" data-certificate="java">
+          View Certificate 
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Web Programming Certification -->
+      <div class="certification-card" data-aos="fade-up">
+        <h3>Web Programming Certification</h3>
+        <p><strong>Issued by:</strong> FreeCodeCamp</p>
+        <p><strong>Date:</strong> June 2023</p>
+        <button class="btn view-certificate" data-certificate="web">
+          View Certificate 
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="loader" id="loader"></div>
+        <img id="certificate-image" src="" alt="Certificate">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Particle Animation
+    const canvas = document.querySelector('.particles');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.5 + 0.5})`;
+        this.opacity = Math.random() * 0.5 + 0.5;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.01;
+        this.opacity -= 0.005;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+
+    function init() {
+      particlesArray = [];
+      for (let i = 0; i < 200; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        particlesArray.push(new Particle(x, y));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particlesArray.length - 1; i >= 0; i--) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+
+        if (particlesArray[i].opacity <= 0) {
+          particlesArray.splice(i, 1);
+        }
+      }
+
+      if (particlesArray.length < 200) {
+        particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Modal Functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("certificate-modal");
+      const modalImg = document.getElementById("certificate-image");
+      const loader = document.getElementById("loader");
+      const closeBtn = document.querySelector(".close");
+
+      // Open modal and display certificate image
+      document.querySelectorAll(".view-certificate").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          modal.style.display = "flex";
+          loader.style.display = "block";
+          modalImg.style.display = "none";
+
+          const certificate = button.getAttribute("data-certificate");
+          setTimeout(() => {
+            if (certificate === "java") {
+              modalImg.src = "https://via.placeholder.com/800x600?text=Java+Certificate";
+            } else if (certificate === "web") {
+              modalImg.src = "https://via.placeholder.com/800x600?text=Web+Certificate";
+            }
+            loader.style.display = "none";
+            modalImg.style.display = "block";
+          }, 1000);
+        });
+      });
+
+      // Close modal
+      closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Close modal when clicking outside the modal content
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+
+    // Card Staggered Animation
+    document.querySelectorAll('.certification-card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.2}s`;
+    });
+
+    // Responsive Handling
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+  </script>
+</body>
+</html>
