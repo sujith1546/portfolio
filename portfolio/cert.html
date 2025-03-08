@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Certifications</title>
   <style>
     /* General Styles */
@@ -36,11 +36,11 @@
     /* Main Container */
     .certifications-container {
       max-width: 900px;
-      width: 100%;
-      padding: 40px;
+      width: 90%; /* Adjusted for mobile */
+      padding: 20px; /* Reduced padding for mobile */
       background: rgba(255, 255, 255, 0.95);
-      border-radius: 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      border-radius: 20px; /* Reduced border radius for mobile */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Reduced shadow for mobile */
       backdrop-filter: blur(20px);
       position: relative;
       overflow: hidden;
@@ -50,11 +50,11 @@
     /* Header Section */
     .header-section {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 30px; /* Reduced margin for mobile */
     }
 
     .header-section h1 {
-      font-size: 3.5rem;
+      font-size: 2.5rem; /* Reduced font size for mobile */
       color: #2c3e50;
       position: relative;
       display: inline-block;
@@ -64,10 +64,10 @@
     .header-section h1::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -5px; /* Adjusted for mobile */
       left: 0;
       width: 100%;
-      height: 3px;
+      height: 2px; /* Reduced height for mobile */
       background: linear-gradient(90deg, #007bff, #ff7f50);
       animation: slide 2s linear infinite;
     }
@@ -75,15 +75,15 @@
     /* Certification Cards */
     .certification-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for mobile */
+      gap: 20px; /* Reduced gap for mobile */
     }
 
     .certification-card {
       background: rgba(255, 255, 255, 0.85);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 20px; /* Reduced padding for mobile */
+      border-radius: 15px; /* Reduced border radius for mobile */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Reduced shadow for mobile */
       position: relative;
       overflow: hidden;
       transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -91,8 +91,8 @@
     }
 
     .certification-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      transform: translateY(-10px); /* Reduced hover effect for mobile */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Reduced shadow for mobile */
     }
 
     .certification-card::before {
@@ -102,7 +102,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0,123,255,0.2), rgba(255,127,80,0.2));
+      background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(255, 127, 80, 0.2));
       z-index: -1;
       opacity: 0;
       transition: opacity 0.5s ease;
@@ -113,15 +113,15 @@
     }
 
     .certification-card h3 {
-      font-size: 1.8rem;
+      font-size: 1.5rem; /* Reduced font size for mobile */
       color: #2c3e50;
-      margin-bottom: 15px;
+      margin-bottom: 10px; /* Reduced margin for mobile */
     }
 
     .certification-card p {
-      font-size: 1.1rem;
+      font-size: 1rem; /* Reduced font size for mobile */
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 15px; /* Reduced margin for mobile */
     }
 
     /* Interactive Buttons */
@@ -129,24 +129,24 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      padding: 15px 30px;
+      padding: 10px 20px; /* Reduced padding for mobile */
       background: linear-gradient(135deg, #007bff, #ff7f50);
       color: white;
       border: none;
-      border-radius: 30px;
+      border-radius: 25px; /* Reduced border radius for mobile */
       cursor: pointer;
       overflow: hidden;
       transition: all 0.3s ease;
       text-transform: uppercase;
       font-weight: bold;
       letter-spacing: 1px;
-      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Reduced shadow for mobile */
     }
 
     .btn svg {
       margin-left: 10px;
-      width: 20px;
-      height: 20px;
+      width: 18px; /* Reduced size for mobile */
+      height: 18px; /* Reduced size for mobile */
       fill: white;
       transition: transform 0.3s ease;
     }
@@ -155,40 +155,46 @@
       transform: translateX(5px);
     }
 
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
-    }
-
     /* Animations */
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px); /* Reduced float effect for mobile */
+      }
     }
 
     @keyframes slide {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
     }
 
     @keyframes cardEnter {
-      0% { transform: scale(0.8) translateY(50px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
+      0% {
+        transform: scale(0.8) translateY(30px); /* Reduced animation for mobile */
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
@@ -208,7 +214,7 @@
         <p><strong>Issued by:</strong> Oracle</p>
         <p><strong>Date:</strong> March 2023</p>
         <button class="btn view-certificate" data-certificate="java">
-          View Certificate 
+          View Certificate
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
           </svg>
@@ -221,20 +227,11 @@
         <p><strong>Issued by:</strong> FreeCodeCamp</p>
         <p><strong>Date:</strong> June 2023</p>
         <button class="btn view-certificate" data-certificate="web">
-          View Certificate 
+          View Certificate
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
           </svg>
         </button>
-      </div>
-    </div>
-
-    <!-- Certificate Modal -->
-    <div id="certificate-modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="loader" id="loader"></div>
-        <img id="certificate-image" src="" alt="Certificate">
       </div>
     </div>
   </div>
@@ -278,7 +275,7 @@
 
     function init() {
       particlesArray = [];
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 100; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         particlesArray.push(new Particle(x, y));
@@ -297,7 +294,7 @@
         }
       }
 
-      if (particlesArray.length < 200) {
+      if (particlesArray.length < 100) {
         particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
       }
 
@@ -307,50 +304,23 @@
     init();
     animate();
 
-    // Modal Functionality
-    document.addEventListener("DOMContentLoaded", () => {
-      const modal = document.getElementById("certificate-modal");
-      const modalImg = document.getElementById("certificate-image");
-      const loader = document.getElementById("loader");
-      const closeBtn = document.querySelector(".close");
+    // PDF Viewing Functionality
+    document.querySelectorAll('.view-certificate').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const certificate = button.getAttribute('data-certificate');
+        let pdfUrl = '';
 
-      // Open modal and display certificate image
-      document.querySelectorAll(".view-certificate").forEach((button) => {
-        button.addEventListener("click", (e) => {
-          e.preventDefault();
-          modal.style.display = "flex";
-          loader.style.display = "block";
-          modalImg.style.display = "none";
+        if (certificate === 'java') {
+          pdfUrl = 'https://example.com/java-certificate.pdf'; // Replace with your PDF URL
+        } else if (certificate === 'web') {
+          pdfUrl = 'https://example.com/web-certificate.pdf'; // Replace with your PDF URL
+        }
 
-          const certificate = button.getAttribute("data-certificate");
-          setTimeout(() => {
-            if (certificate === "java") {
-              modalImg.src = "https://via.placeholder.com/800x600?text=Java+Certificate";
-            } else if (certificate === "web") {
-              modalImg.src = "https://via.placeholder.com/800x600?text=Web+Certificate";
-            }
-            loader.style.display = "none";
-            modalImg.style.display = "block";
-          }, 1000);
-        });
-      });
-
-      // Close modal
-      closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-
-      // Close modal when clicking outside the modal content
-      window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-          modal.style.display = "none";
+        if (pdfUrl) {
+          window.open(pdfUrl, '_blank'); // Open PDF in a new tab
         }
       });
-    });
-
-    // Card Staggered Animation
-    document.querySelectorAll('.certification-card').forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.2}s`;
     });
 
     // Responsive Handling
