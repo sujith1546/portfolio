@@ -6,6 +6,8 @@
   <title>About Me</title>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- HTML2PDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     /* General Styles */
     body {
@@ -21,7 +23,6 @@
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
     }
-
     body.dark-mode {
       background: linear-gradient(135deg, #1e1e2f, #2d2d44);
       color: #f5f5f5;
@@ -37,12 +38,10 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
     }
-
     body.dark-mode header {
       background: #333333;
       color: white;
     }
-
     header h1 {
       margin: 0;
       font-size: 2rem;
@@ -64,24 +63,20 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: background 0.3s ease;
     }
-
     body.dark-mode .dark-mode-toggle {
       background: rgba(45, 45, 68, 0.9);
     }
-
     .toggle-switch {
       position: relative;
       display: inline-block;
       width: 50px;
       height: 24px;
     }
-
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-
     .slider {
       position: absolute;
       cursor: pointer;
@@ -93,7 +88,6 @@
       transition: 0.4s;
       border-radius: 24px;
     }
-
     .slider:before {
       position: absolute;
       content: '';
@@ -105,11 +99,9 @@
       transition: 0.4s;
       border-radius: 50%;
     }
-
     input:checked + .slider {
       background-color: #3498db;
     }
-
     input:checked + .slider:before {
       transform: translateX(26px);
     }
@@ -128,7 +120,6 @@
       margin: 1rem;
       transition: background 0.3s ease, color 0.3s ease;
     }
-
     body.dark-mode .container {
       background: rgba(45, 45, 68, 0.9);
       color: #f5f5f5;
@@ -145,7 +136,6 @@
       border: 4px solid #3498db;
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
-
     .profile-photo:hover {
       transform: scale(1.05);
       border-color: #2980b9;
@@ -158,18 +148,15 @@
       margin-bottom: 10px;
       font-weight: 600;
     }
-
     body.dark-mode h1 {
       color: #f5f5f5;
     }
-
     h2 {
       font-size: 1.3rem;
       color: #2c3e50;
       margin-bottom: 15px;
       font-weight: 500;
     }
-
     body.dark-mode h2 {
       color: #f5f5f5;
     }
@@ -180,11 +167,9 @@
       margin-bottom: 10px;
       color: #555;
     }
-
     body.dark-mode p {
       color: #f5f5f5;
     }
-
     .cgpa {
       font-weight: 600;
       color: #27ae60;
@@ -197,7 +182,6 @@
       color: #3498db;
       font-weight: 500;
     }
-
     body.dark-mode .countdown {
       color: #64b5f6;
     }
@@ -207,11 +191,9 @@
       margin: 15px 0;
       padding: 15px;
     }
-
     .fun-fact h2 {
       color: #3498db;
     }
-
     body.dark-mode .fun-fact h2 {
       color: #64b5f6;
     }
@@ -220,20 +202,16 @@
     .tech-stack {
       margin: 15px 0;
     }
-
     .tech-stack h2 {
       color: #3498db;
     }
-
     body.dark-mode .tech-stack h2 {
       color: #64b5f6;
     }
-
     .tech-stack p {
       font-size: 0.9rem;
       color: #555;
     }
-
     body.dark-mode .tech-stack p {
       color: #f5f5f5;
     }
@@ -242,15 +220,12 @@
     .featured-work {
       margin: 15px 0;
     }
-
     .featured-work h2 {
       color: #3498db;
     }
-
     body.dark-mode .featured-work h2 {
       color: #64b5f6;
     }
-
     .work-item {
       margin: 10px 0;
       padding: 10px;
@@ -266,12 +241,10 @@
       margin-top: 20px;
       box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     }
-
     body.dark-mode footer {
       background: #333333;
       color: white;
     }
-
     footer p {
       margin: 0;
       font-size: 0.8rem;
@@ -292,10 +265,33 @@
       display: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     #scrollToTop:hover {
       transform: scale(1.1);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Download as PDF Button */
+    .download-pdf {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff6f61, #ff3e41);
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .download-pdf:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .download-pdf i {
+      margin-right: 8px;
     }
 
     /* Responsive Design for Mobile */
@@ -303,45 +299,40 @@
       header h1 {
         font-size: 1.5rem;
       }
-
       .container {
         padding: 1rem;
         margin: 1rem;
       }
-
       .profile-photo {
         width: 100px;
         height: 100px;
       }
-
       h1 {
         font-size: 1.5rem;
       }
-
       h2 {
         font-size: 1.2rem;
       }
-
       p {
         font-size: 0.8rem;
       }
-
       .countdown {
         font-size: 0.9rem;
       }
-
       .fun-fact, .tech-stack, .featured-work {
         margin: 10px 0;
         padding: 10px;
       }
-
       .work-item {
         margin: 8px 0;
         padding: 8px;
       }
-
       footer p {
         font-size: 0.7rem;
+      }
+      .download-pdf {
+        font-size: 0.9rem;
+        padding: 8px 16px;
       }
     }
   </style>
@@ -355,21 +346,16 @@
     </label>
     <span>Dark Mode</span>
   </div>
-
   <header>
     <h1>About Me</h1>
   </header>
-
-  <div class="container">
+  <div class="container" id="contentToDownload">
     <!-- Personalized Greeting -->
     <p id="greeting"></p>
-
     <!-- Profile Photo -->
     <img src="profile_photo.png" alt="Profile Photo" class="profile-photo" id="profilePhoto">
-
     <!-- Name -->
     <h1>Thota Sujith Reddy</h1>
-
     <!-- About Me Section -->
     <div class="about-me">
       <h2>About Me</h2>
@@ -377,27 +363,22 @@
         I am a <strong>Computer Science and Engineering (Data Science)</strong> student currently in my <strong>3rd year</strong> at <strong>VIT University, Vellore</strong>. I hail from the beautiful town of <strong>Tadipatri</strong> in <strong>Andhra Pradesh</strong>. My passion lies in exploring the vast world of data science and applying my skills to solve real-world problems.
       </p>
     </div>
-
     <!-- CGPA Information -->
     <p>My current CGPA is <span class="cgpa">8.32</span>, and I am working hard to improve it further.</p>
-
     <!-- Countdown Timer -->
     <div class="countdown">
       Graduation in: <span id="countdown"></span>
     </div>
-
     <!-- Fun Fact Section -->
     <div class="fun-fact">
       <h2>Fun Fact</h2>
       <p>I enjoy playing cricket, watching movies, and watching cricket matches.</p>
     </div>
-
     <!-- Tech Stack Section -->
     <div class="tech-stack">
       <h2>Tech Stack</h2>
       <p>Python, TensorFlow, C, Java, MySQL</p>
     </div>
-
     <!-- Featured Work Section -->
     <div class="featured-work">
       <h2>Featured Work</h2>
@@ -406,28 +387,26 @@
         <p>As a fresher, I designed and developed this online portfolio to showcase my skills and projects.</p>
       </div>
     </div>
-
+    <!-- Download as PDF Button -->
+    <a href="#" class="download-pdf" id="downloadPdfButton">
+      <i class="fas fa-download"></i> Download Full Page as PDF
+    </a>
     <!-- Scroll-to-Top Button -->
     <button id="scrollToTop" title="Go to top">↑</button>
   </div>
-
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 My Portfolio. All rights reserved.</p>
   </footer>
-
   <script>
     // JavaScript to add interactivity
-
     // Dark Mode Toggle
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
-
     darkModeToggle.addEventListener('change', () => {
       body.classList.toggle('dark-mode');
       localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
     });
-
     // Check for saved dark mode preference
     if (localStorage.getItem('darkMode') === 'true') {
       body.classList.add('dark-mode');
@@ -459,24 +438,19 @@
     // Countdown Timer
     const countdownElement = document.getElementById('countdown');
     const graduationDate = new Date('May 30, 2026 00:00:00').getTime();
-
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = graduationDate - now;
-
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
       countdownElement.textContent = `${days}d ${hours}h ${minutes}m`;
     }
-
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
     // Scroll-to-Top Button
     const scrollToTopButton = document.getElementById('scrollToTop');
-
     window.addEventListener('scroll', () => {
       if (window.scrollY > 200) {
         scrollToTopButton.style.display = 'block';
@@ -484,9 +458,22 @@
         scrollToTopButton.style.display = 'none';
       }
     });
-
     scrollToTopButton.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Download Full Page as PDF
+    const downloadPdfButton = document.getElementById('downloadPdfButton');
+    downloadPdfButton.addEventListener('click', () => {
+      const element = document.documentElement; // Select the entire page
+      const opt = {
+        margin: 10,
+        filename: 'MyPortfolioFullPage.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, scrollY: 0 }, // Ensure full page capture
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
     });
   </script>
 </body>
