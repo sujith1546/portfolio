@@ -75,6 +75,40 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
+    .home-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1000px;
+      width: 100%;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      scroll-snap-align: start;
+      padding: 50px;
+      box-sizing: border-box;
+      margin-bottom: 100px;
+    }
+    .home-text {
+      flex: 1;
+      padding-right: 40px;
+    }
+    .home-image {
+      flex: 1;
+      text-align: center;
+    }
+    .home-image img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .home-image img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
     .text-content {
       max-width: 500px;
       width: 100%;
@@ -298,6 +332,20 @@
       .sidebar ul li a {
         font-size: 14px;
       }
+      .home-content {
+        flex-direction: column-reverse;
+        padding: 20px;
+        margin-bottom: 50px;
+      }
+      .home-text {
+        padding-right: 0;
+        text-align: center;
+        margin-top: 20px;
+      }
+      .home-image img {
+        width: 200px;
+        height: 200px;
+      }
       .text-content {
         max-width: 100%;
         padding: 20px;
@@ -383,7 +431,7 @@
         <h3>Scan to Share Portfolio</h3>
         <div id="qrcode">
           <!-- Updated to use the frames.png image instead of SVG -->
-          <img src="frame.png" alt="QR Code" class="custom-qr-image">
+          <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1jeRnZ.img?w=768&h=432&m=6" alt="QR Code" class="custom-qr-image">
         </div>
         <p>Scan this QR code with your phone<br>to view my portfolio</p>
       </div>
@@ -397,7 +445,7 @@
   <!-- Main Content -->
   <div class="main-content">
     <div id="content-container" class="scroll-container">
-      <!-- Sub-page content will be dynamically loaded here -->
+      <!-- Home content will be dynamically loaded here -->
     </div>
   </div>
 
@@ -410,6 +458,23 @@
 
       const loadContent = async (page, targetElement) => {
         try {
+          // For the home page, we'll use a special layout
+          if (page === 'home') {
+            targetElement.innerHTML = `
+              <div class="home-content">
+                <div class="home-text">
+                  <h1>I am<br><span style="color: #007bff; font-size: 1.5em;">a Designer</span></h1>
+                  <p>100% html5 bootstrap templates Made by colorlib.com</p>
+                  <a href="#" class="btn">VIEW PORTFOLIO <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="home-image">
+                  <img src="profile_photo.png" alt="Sujith Thota - Designer">
+                </div>
+              </div>
+            `;
+            return;
+          }
+          
           const response = await fetch(`${page}.html?nocache=${Date.now()}`);
           if (!response.ok) throw new Error(`Failed to load ${page}.html`);
           const html = await response.text();
@@ -422,7 +487,7 @@
 
       pages.forEach((page) => {
         const contentDiv = document.createElement('div');
-        contentDiv.className = 'text-content';
+        contentDiv.className = page === 'home' ? 'home-content' : 'text-content';
         contentContainer.appendChild(contentDiv);
         loadContent(page, contentDiv);
       });
@@ -485,4 +550,3 @@
   </script>
 </body>
 </html>
-
