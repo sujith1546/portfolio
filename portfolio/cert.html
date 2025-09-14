@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Accomplishments</title>
+  <title>My Accomplishments & Projects</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -13,28 +13,23 @@
       margin: 0;
       padding: 40px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      gap: 40px;
     }
 
     /* Outer Box */
-    .accomplishments-section {
+    .accomplishments-section, .projects-section {
       background: #fff;
       padding: 40px;
       max-width: 900px;
       width: 90%;
       border-radius: 15px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      animation: fadeIn 1.2s ease-in-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* Removed overflow:hidden to allow bottom circle */
     }
 
-    .accomplishments-section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
-
-    .accomplishments-section h1 {
+    .accomplishments-section h1, .projects-section h1 {
       text-align: center;
       margin-bottom: 40px;
       text-transform: uppercase;
@@ -45,7 +40,7 @@
       position: relative;
     }
 
-    .accomplishments-section h1::after {
+    .accomplishments-section h1::after, .projects-section h1::after {
       content: "";
       display: block;
       width: 60px;
@@ -68,7 +63,7 @@
       position: absolute;
       left: 40px;
       top: 20px;
-      bottom: 20px;
+      bottom: 0;
       width: 3px;
       background: #ddd;
       z-index: 0;
@@ -78,7 +73,7 @@
       content: '';
       position: absolute;
       left: 40px;
-      bottom: 0;
+      bottom: -7px; /* make the bottom circle visible */
       transform: translate(-50%, 50%);
       width: 14px;
       height: 14px;
@@ -91,6 +86,14 @@
       position: relative;
       margin-bottom: 30px;
       padding-left: 100px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .timeline-item.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .timeline-icon {
@@ -145,18 +148,13 @@
     .orange { background: #e67e22; }
     .teal { background: #16a085; }
     .darkblue { background: #2c3e50; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
 
+  <!-- Accomplishments Section -->
   <section class="accomplishments-section">
     <h1>My Accomplishments</h1>
-
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-icon teal"><i class="fas fa-laptop-code"></i></div>
@@ -191,6 +189,50 @@
       </div>
     </div>
   </section>
+
+  <!-- Current Working Projects Section -->
+  <section class="projects-section">
+    <h1>Current Working Projects</h1>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-icon purple"><i class="fas fa-paw"></i></div>
+        <div class="timeline-content">
+          <h3>Animal Detection <span>Ongoing 2025</span></h3>
+          <p>Developing a deep learning-based system to detect and classify animals in images for wildlife monitoring.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-icon blue"><i class="fas fa-chart-line"></i></div>
+        <div class="timeline-content">
+          <h3>IPL T20 Score Predictor <span>Ongoing 2025</span></h3>
+          <p>Building a machine learning model to predict IPL T20 match scores using historical cricket data and AI techniques.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-icon red"><i class="fas fa-video"></i></div>
+        <div class="timeline-content">
+          <h3>Drone Detector <span>Ongoing 2025</span></h3>
+          <p>Creating a system to detect and track drones in restricted airspace using AI and computer vision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Scroll animation using Intersection Observer
+    const items = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    items.forEach(item => observer.observe(item));
+  </script>
 
 </body>
 </html>
