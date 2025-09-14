@@ -192,7 +192,7 @@
     .certification-card a:hover {
       text-decoration: underline;
     }
-    .qr-scanner-btn {
+    .share-portfolio-btn {
       display: block;
       width: 80%;
       margin: 25px auto 15px;
@@ -206,15 +206,15 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       font-size: 14px;
     }
-    .qr-scanner-btn i {
+    .share-portfolio-btn i {
       margin-right: 8px;
     }
-    .qr-scanner-btn:hover {
+    .share-portfolio-btn:hover {
       background: #218838;
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
-    .qr-modal {
+    .share-modal {
       display: none;
       position: fixed;
       top: 0;
@@ -227,15 +227,17 @@
       justify-content: center;
       align-items: center;
     }
-    .qr-modal-content {
+    .share-modal-content {
       background: white;
       padding: 30px;
       border-radius: 15px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       position: relative;
+      width: 90%;
+      max-width: 450px;
     }
-    .qr-modal-close {
+    .share-modal-close {
       position: absolute;
       top: 10px;
       right: 15px;
@@ -244,28 +246,90 @@
       color: #333;
       transition: color 0.3s ease;
     }
-    .qr-modal-close:hover {
+    .share-modal-close:hover {
       color: #007bff;
     }
-    #qrcode {
+    .share-link-container {
+      display: flex;
       margin: 20px 0;
-      padding: 15px;
-      background: white;
-      border-radius: 0; /* Changed from 10px to 0 for square corners */
-      width: 230px;
-      height: 230px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .share-link-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+    }
+    .copy-link-btn {
+      padding: 12px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 14px;
+    }
+    .copy-link-btn:hover {
+      background: #0056b3;
+    }
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .share-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .custom-qr-image {
-      width: 200px;
-      height: 200px;
-      object-fit: contain;
-      display: block;
-      border-radius: 0; /* Ensuring the image has square corners */
+    .share-btn i {
+      margin-right: 8px;
+    }
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .whatsapp-btn {
+      background: #25D366;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+    }
+    .gmail-btn {
+      background: #DB4437;
+    }
+    .gmail-btn:hover {
+      background: #C1351D;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      z-index: 1001;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
     }
     
     /* Scroll down animation */
@@ -415,23 +479,22 @@
       .social-icons a {
         font-size: 20px;
       }
-      .qr-scanner-btn {
+      .share-portfolio-btn {
         width: 90%;
         padding: 10px 15px;
         font-size: 12px;
         margin: 15px auto;
       }
-      .qr-modal-content {
+      .share-modal-content {
         width: 90%;
         padding: 20px;
       }
-      #qrcode {
-        width: 180px;
-        height: 180px;
+      .share-buttons {
+        flex-direction: column;
+        gap: 10px;
       }
-      .custom-qr-image {
-        width: 150px;
-        height: 150px;
+      .share-btn {
+        width: 100%;
       }
     }
   </style>
@@ -453,9 +516,9 @@
       <li><a href="#" data-page="contact">CONTACT</a></li>
     </ul>
 
-    <!-- QR Scanner Button -->
-    <button class="qr-scanner-btn" onclick="showQRModal()">
-      <i class="fas fa-qrcode"></i> Share Portfolio
+    <!-- Share Portfolio Button -->
+    <button class="share-portfolio-btn" onclick="showShareModal()">
+      <i class="fas fa-share-alt"></i> Share Portfolio
     </button>
 
     <!-- Social Icons -->
@@ -471,18 +534,33 @@
       </a>
     </div>
 
-    <!-- QR Modal -->
-    <div id="qrModal" class="qr-modal">
-      <div class="qr-modal-content">
-        <span class="qr-modal-close" onclick="closeQRModal()">&times;</span>
-        <h3>Scan to Share Portfolio</h3>
-        <div id="qrcode">
-          <!-- Updated to use the frames.png image instead of SVG -->
-          <img src="frame.png" alt="QR Code" class="custom-qr-image">
+    <!-- Share Modal -->
+    <div id="shareModal" class="share-modal">
+      <div class="share-modal-content">
+        <span class="share-modal-close" onclick="closeShareModal()">&times;</span>
+        <h3>Share My Portfolio</h3>
+        <p>Copy the link or share directly via:</p>
+        
+        <div class="share-link-container">
+          <input type="text" id="portfolioLink" class="share-link-input" value="https://sujith1546.github.io/portfolio/portfolio/index.html#" readonly>
+          <button class="copy-link-btn" onclick="copyLink()">
+            <i class="fas fa-copy"></i>
+          </button>
         </div>
-        <p>Scan this QR code with your phone<br>to view my portfolio</p>
+        
+        <div class="share-buttons">
+          <a href="#" id="whatsappShare" class="share-btn whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="#" id="gmailShare" class="share-btn gmail-btn" target="_blank">
+            <i class="fab fa-google"></i> Gmail
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Link copied to clipboard!</div>
 
     <p style="margin-top: 20px; font-size: 14px; color: #333;">
       &copy; 2025 All Rights Reserved Sujith
@@ -590,21 +668,54 @@
 
       contentContainer.addEventListener('scroll', handleScroll);
       links[0].classList.add('active');
+      
+      // Setup share links
+      const portfolioUrl = "https://sujith1546.github.io/portfolio/portfolio/index.html#";
+      const encodedUrl = encodeURIComponent(portfolioUrl);
+      const message = encodeURIComponent("Check out my portfolio!");
+      
+      document.getElementById('whatsappShare').href = `https://wa.me/?text=${message}%20${encodedUrl}`;
+      document.getElementById('gmailShare').href = `mailto:?subject=${message}&body=${encodedUrl}`;
     });
 
-    // QR Code Functions
-    function showQRModal() {
-      const modal = document.getElementById('qrModal');
+    // Share Functions
+    function showShareModal() {
+      const modal = document.getElementById('shareModal');
       modal.style.display = 'flex';
     }
 
-    function closeQRModal() {
-      document.getElementById('qrModal').style.display = 'none';
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+    }
+
+    function copyLink() {
+      const linkInput = document.getElementById('portfolioLink');
+      linkInput.select();
+      linkInput.setSelectionRange(0, 99999); // For mobile devices
+      
+      navigator.clipboard.writeText(linkInput.value)
+        .then(() => {
+          showToast('Link copied to clipboard!');
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+          showToast('Failed to copy link');
+        });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
 
     window.onclick = function(event) {
-      const modal = document.getElementById('qrModal');
-      if (event.target === modal) closeQRModal();
+      const modal = document.getElementById('shareModal');
+      if (event.target === modal) closeShareModal();
     }
   </script>
 </body>
