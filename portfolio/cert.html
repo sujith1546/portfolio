@@ -12,8 +12,50 @@
       background: #f5f6fa;
       margin: 0;
       padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    /* Outer Box */
+    .accomplishments-section {
+      background: #fff;
+      padding: 40px;
+      max-width: 900px;
+      width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .accomplishments-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .accomplishments-section h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #2c3e50;
+      position: relative;
+    }
+
+    .accomplishments-section h1::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #0077ff;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Timeline */
     .timeline {
       position: relative;
       margin: 0 auto;
@@ -21,19 +63,17 @@
       width: 80%;
     }
 
-    /* Vertical line */
     .timeline::before {
       content: '';
       position: absolute;
-      left: 40px; /* aligns with icon centers */
-      top: 20px;  /* starts at first icon */
-      bottom: 20px; /* leaves space for end dot */
+      left: 40px;
+      top: 20px;
+      bottom: 20px;
       width: 3px;
       background: #ddd;
       z-index: 0;
     }
 
-    /* Line ending dot */
     .timeline::after {
       content: '';
       position: absolute;
@@ -53,10 +93,9 @@
       padding-left: 100px;
     }
 
-    /* Icon circles */
     .timeline-icon {
       position: absolute;
-      left: 20px; /* aligns with line */
+      left: 20px;
       top: 0;
       width: 40px;
       height: 40px;
@@ -68,10 +107,9 @@
       font-size: 18px;
       border: 3px solid #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      z-index: 1; /* above line */
+      z-index: 1;
     }
 
-    /* Card box */
     .timeline-content {
       background: #fff;
       padding: 20px;
@@ -107,46 +145,52 @@
     .orange { background: #e67e22; }
     .teal { background: #16a085; }
     .darkblue { background: #2c3e50; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
-  <h1 style="text-align:center; margin-bottom:40px;">My Accomplishments</h1>
+  <section class="accomplishments-section">
+    <h1>My Accomplishments</h1>
 
-  <div class="timeline">
-    <!-- Oldest first (bottom) -->
-    <div class="timeline-item">
-      <div class="timeline-icon teal"><i class="fas fa-laptop-code"></i></div>
-      <div class="timeline-content">
-        <h3>Personal Portfolio <span>2023</span></h3>
-        <p>Created a personal portfolio website to showcase my projects and skills.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-icon teal"><i class="fas fa-laptop-code"></i></div>
+        <div class="timeline-content">
+          <h3>Personal Portfolio <span>2023</span></h3>
+          <p>Created a personal portfolio website to showcase my projects and skills.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-icon orange"><i class="fas fa-book"></i></div>
+        <div class="timeline-content">
+          <h3>Learned Python and SQL <span>2024</span></h3>
+          <p>Developed strong foundations in Python programming and SQL for database management.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-icon darkblue"><i class="fas fa-basketball-ball"></i></div>
+        <div class="timeline-content">
+          <h3>Sports Image Identification Project <span>June 2024 - July 2024</span></h3>
+          <p>Created a deep learning project to identify sports images using AI techniques.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-icon green"><i class="fas fa-brain"></i></div>
+        <div class="timeline-content">
+          <h3>Online Internship - SmartInternz AI with TensorFlow <span>June 2024 - July 2024</span></h3>
+          <p>Completed an online internship powered by Google Developers, focusing on AI and TensorFlow applications.</p>
+        </div>
       </div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-icon orange"><i class="fas fa-book"></i></div>
-      <div class="timeline-content">
-        <h3>Learned Python and SQL <span>2024</span></h3>
-        <p>Developed strong foundations in Python programming and SQL for database management.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-icon darkblue"><i class="fas fa-basketball-ball"></i></div>
-      <div class="timeline-content">
-        <h3>Sports Image Identification Project <span>June 2024 - July 2024</span></h3>
-        <p>Created a deep learning project to identify sports images using AI techniques.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-icon green"><i class="fas fa-brain"></i></div>
-      <div class="timeline-content">
-        <h3>Online Internship - SmartInternz AI with TensorFlow <span>June 2024 - July 2024</span></h3>
-        <p>Completed an online internship powered by Google Developers, focusing on AI and TensorFlow applications.</p>
-      </div>
-    </div>
-  </div>
+  </section>
 
 </body>
 </html>
