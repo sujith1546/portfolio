@@ -213,11 +213,12 @@
     .qr-modal-close:hover {
       color: #007bff;
     }
+    /* FIXED: Force QR code square */
     #qrcode {
       margin: 20px 0;
       padding: 15px;
       background: white;
-      border-radius: 0; /* Changed from 10px to 0 for square corners */
+      border-radius: 0 !important; /* square only */
       width: 230px;
       height: 230px;
       display: flex;
@@ -231,7 +232,7 @@
       height: 200px;
       object-fit: contain;
       display: block;
-      border-radius: 0; /* Ensuring the image has square corners */
+      border-radius: 0 !important; /* square only */
     }
     @media (max-width: 768px) {
       body {
@@ -355,7 +356,6 @@
         <span class="qr-modal-close" onclick="closeQRModal()">&times;</span>
         <h3>Scan to Share Portfolio</h3>
         <div id="qrcode">
-          <!-- Updated to use the frames.png image instead of SVG -->
           <img src="frame.png" alt="QR Code" class="custom-qr-image">
         </div>
         <p>Scan this QR code with your phone<br>to view my portfolio</p>
@@ -458,4 +458,3 @@
   </script>
 </body>
 </html>
-
