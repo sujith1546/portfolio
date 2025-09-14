@@ -1,251 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certifications</title>
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Accomplishments</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* General Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    body {
       font-family: 'Arial', sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 40px;
     }
 
-    body {
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    .timeline {
+      position: relative;
+      margin: 0 auto;
+      padding: 10px 0;
+      width: 80%;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 40px; /* aligns with icon centers */
+      top: 20px;  /* starts at first icon */
+      bottom: 20px; /* leaves space for end dot */
+      width: 3px;
+      background: #ddd;
+      z-index: 0;
+    }
+
+    /* Line ending dot */
+    .timeline::after {
+      content: '';
+      position: absolute;
+      left: 40px;
+      bottom: 0;
+      transform: translate(-50%, 50%);
+      width: 14px;
+      height: 14px;
+      background: #ddd;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+      padding-left: 100px;
+    }
+
+    /* Icon circles */
+    .timeline-icon {
+      position: absolute;
+      left: 20px; /* aligns with line */
+      top: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    /* Glassmorphism Design */
-    .certifications-container {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      max-width: 900px;
-      width: 90%;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      margin: 2rem;
-      animation: fadeIn 1.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Header Section */
-    .header-section {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .header-section h1 {
-      font-size: 2.5rem;
-      color: #2c3e50;
-      font-weight: 600;
-      animation: slideIn 1s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Certification Cards */
-    .certification-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .certification-card {
-      background: rgba(255, 255, 255, 0.85);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: cardEnter 1s ease forwards;
-    }
-
-    .certification-card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .certification-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(41, 128, 185, 0.2));
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .certification-card:hover::before {
-      opacity: 1;
-    }
-
-    .certification-card h3 {
-      font-size: 1.5rem;
-      color: #2c3e50;
-      margin-bottom: 10px;
-      transition: color 0.3s ease;
-    }
-
-    .certification-card:hover h3 {
-      color: #3498db;
-    }
-
-    .certification-card p {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 15px;
-    }
-
-    /* Gradient Button */
-    .btn {
-      position: relative;
-      display: inline-flex;
       align-items: center;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #3498db, #2980b9);
       color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
+      font-size: 18px;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 1; /* above line */
+    }
+
+    /* Card box */
+    .timeline-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .timeline-content h3 {
+      margin: 0;
+      font-size: 18px;
       font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
     }
 
-    .btn svg {
-      margin-left: 10px;
-      width: 18px;
-      height: 18px;
-      fill: white;
-      transition: transform 0.3s ease;
+    .timeline-content span {
+      font-size: 14px;
+      color: #888;
     }
 
-    .btn:hover svg {
-      transform: translateX(5px);
+    .timeline-content p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
     }
 
-    /* Animations */
-    @keyframes cardEnter {
-      0% {
-        transform: scale(0.8) translateY(30px);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* New Hover Animation for Buttons */
-    .btn::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: width 0.3s ease;
-    }
-
-    .btn:hover::after {
-      width: 100%;
-    }
+    /* Colors */
+    .blue { background: #3498db; }
+    .red { background: #e74c3c; }
+    .yellow { background: #f1c40f; color: #333; }
+    .purple { background: #9b59b6; }
+    .green { background: #1abc9c; }
+    .orange { background: #e67e22; }
+    .teal { background: #16a085; }
+    .darkblue { background: #2c3e50; }
   </style>
 </head>
 <body>
-  <div class="certifications-container">
-    <div class="header-section">
-      <h1>Certifications</h1>
+
+  <h1 style="text-align:center; margin-bottom:40px;">My Accomplishments</h1>
+
+  <div class="timeline">
+    <!-- Oldest first (bottom) -->
+    <div class="timeline-item">
+      <div class="timeline-icon teal"><i class="fas fa-laptop-code"></i></div>
+      <div class="timeline-content">
+        <h3>Personal Portfolio <span>2023</span></h3>
+        <p>Created a personal portfolio website to showcase my projects and skills.</p>
+      </div>
     </div>
 
-    <div class="certification-grid">
-      <!-- Java Certification -->
-      <div class="certification-card">
-        <h3>Java Programming Certification</h3>
-        <p><strong>Issued by:</strong> Oracle</p>
-        <p><strong>Date:</strong> March 2023</p>
-        <button class="btn view-certificate" data-certificate="java">
-          View Certificate
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
-          </svg>
-        </button>
+    <div class="timeline-item">
+      <div class="timeline-icon orange"><i class="fas fa-book"></i></div>
+      <div class="timeline-content">
+        <h3>Learned Python and SQL <span>2024</span></h3>
+        <p>Developed strong foundations in Python programming and SQL for database management.</p>
       </div>
+    </div>
 
-      <!-- Web Programming Certification -->
-      <div class="certification-card">
-        <h3>Web Programming Certification</h3>
-        <p><strong>Issued by:</strong> FreeCodeCamp</p>
-        <p><strong>Date:</strong> June 2023</p>
-        <button class="btn view-certificate" data-certificate="web">
-          View Certificate
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.83 0 1.5-.67 1.5-1.5S7.83 9 7 9s-1.5.67-1.5 1.5S6.17 12 7 12zm12 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5-6c.83 0 1.5-.67 1.5-1.5S13.83 3 13 3s-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>
-          </svg>
-        </button>
+    <div class="timeline-item">
+      <div class="timeline-icon darkblue"><i class="fas fa-basketball-ball"></i></div>
+      <div class="timeline-content">
+        <h3>Sports Image Identification Project <span>June 2024 - July 2024</span></h3>
+        <p>Created a deep learning project to identify sports images using AI techniques.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon green"><i class="fas fa-brain"></i></div>
+      <div class="timeline-content">
+        <h3>Online Internship - SmartInternz AI with TensorFlow <span>June 2024 - July 2024</span></h3>
+        <p>Completed an online internship powered by Google Developers, focusing on AI and TensorFlow applications.</p>
       </div>
     </div>
   </div>
 
-  <script>
-    // PDF Viewing Functionality
-    document.querySelectorAll('.view-certificate').forEach((button) => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const certificate = button.getAttribute('data-certificate');
-        let pdfUrl = '';
-
-        if (certificate === 'java') {
-          pdfUrl = 'https://example.com/java-certificate.pdf'; // Replace with your PDF URL
-        } else if (certificate === 'web') {
-          pdfUrl = 'https://example.com/web-certificate.pdf'; // Replace with your PDF URL
-        }
-
-        if (pdfUrl) {
-          window.open(pdfUrl, '_blank'); // Open PDF in a new tab
-        }
-      });
-    });
-  </script>
 </body>
 </html>
