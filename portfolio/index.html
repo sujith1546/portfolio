@@ -88,7 +88,6 @@
       padding: 50px;
       box-sizing: border-box;
       margin-bottom: 100px;
-      min-height: 100vh;
     }
     .home-text {
       flex: 1;
@@ -111,7 +110,7 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
     .text-content {
-      max-width: 800px;
+      max-width: 500px;
       width: 100%;
       opacity: 1;
       transform: translateY(0);
@@ -120,7 +119,6 @@
       padding: 50px;
       box-sizing: border-box;
       margin-bottom: 100px;
-      min-height: 100vh;
     }
     .btn {
       display: inline-block;
@@ -509,7 +507,7 @@
     <h2>Sujith Thota</h2>
     <p>Student in VIT</p>
     <ul>
-      <li><a href="#" data-page="home" class="active">HOME</a></li>
+      <li><a href="#" data-page="home">HOME</a></li>
       <li><a href="#" data-page="about">ABOUT</a></li>
       <li><a href="#" data-page="skills">SKILLS</a></li>
       <li><a href="#" data-page="education">EDUCATION</a></li>
@@ -572,30 +570,18 @@
   <!-- Main Content -->
   <div class="main-content">
     <div id="content-container" class="scroll-container">
-      <!-- Content will be dynamically loaded here -->
+      <!-- Home content will be dynamically loaded here -->
     </div>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       const links = document.querySelectorAll('.sidebar ul li a');
       const contentContainer = document.getElementById('content-container');
       const pages = Array.from(links).map(link => link.getAttribute('data-page'));
       let currentPageIndex = 0;
-      let isScrolling = false;
-      let scrollTimeout;
 
-      // Initialize all page sections
-      pages.forEach((page, index) => {
-        const contentDiv = document.createElement('div');
-        contentDiv.className = page === 'home' ? 'home-content' : 'text-content';
-        contentDiv.id = `page-${page}`;
-        contentContainer.appendChild(contentDiv);
-        loadContent(page, contentDiv);
-      });
-
-      // Load content for a specific page
-      async function loadContent(page, targetElement) {
+      const loadContent = async (page, targetElement) => {
         try {
           // For the home page, we'll use a special layout
           if (page === 'home') {
@@ -626,89 +612,62 @@
             return;
           }
           
-          // For other pages, try to load from external files
           const response = await fetch(`${page}.html?nocache=${Date.now()}`);
-          if (!response.ok) {
-            // If file doesn't exist, create a placeholder
-            targetElement.innerHTML = `
-              <h1>${page.charAt(0).toUpperCase() + page.slice(1)}</h1>
-              <p>This is the ${page} section. Content will be added soon.</p>
-            `;
-            return;
-          }
+          if (!response.ok) throw new Error(`Failed to load ${page}.html`);
           const html = await response.text();
           targetElement.innerHTML = html;
         } catch (error) {
           console.error(error);
-          // Create placeholder content if loading fails
-          targetElement.innerHTML = `
-            <h1>${page.charAt(0).toUpperCase() + page.slice(1)}</h1>
-            <p>This is the ${page} section. Content will be added soon.</p>
-          `;
+          targetElement.innerHTML = `<h1>Error</h1><p>Failed to load ${page} content.</p>`;
         }
-      }
+      };
 
-      // Scroll to a specific page
-      function scrollToPage(pageIndex) {
-        if (isScrolling) return;
-        
-        isScrolling = true;
+      pages.forEach((page) => {
+        const contentDiv = document.createElement('div');
+        contentDiv.className = page === 'home' ? 'home-content' : 'text-content';
+        contentContainer.appendChild(contentDiv);
+        loadContent(page, contentDiv);
+      });
+
+      const scrollToPage = (pageIndex) => {
         const targetElement = contentContainer.children[pageIndex];
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-          
-          // Update active link
-          links.forEach(l => l.classList.remove('active'));
-          links[pageIndex].classList.add('active');
-          currentPageIndex = pageIndex;
-          
-          // Reset scrolling flag after animation completes
-          setTimeout(() => {
-            isScrolling = false;
-          }, 500);
-        }
-      }
+        if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+      };
 
-      // Handle link clicks
       links.forEach((link, index) => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', async (e) => {
           e.preventDefault();
+          contentContainer.removeEventListener('scroll', handleScroll);
+          currentPageIndex = index;
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          const targetElement = contentContainer.children[currentPageIndex];
+          await loadContent(pages[currentPageIndex], targetElement);
           scrollToPage(index);
+          setTimeout(() => contentContainer.addEventListener('scroll', handleScroll), 500);
         });
       });
 
-      // Handle scroll events to update active link
-      function handleScroll() {
-        if (isScrolling) return;
-        
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          const scrollTop = contentContainer.scrollTop;
-          const containerHeight = contentContainer.clientHeight;
-          
-          // Find which page is currently in view
-          for (let i = 0; i < contentContainer.children.length; i++) {
-            const child = contentContainer.children[i];
-            const childTop = child.offsetTop;
-            const childHeight = child.offsetHeight;
-            
-            // Check if the element is at least 40% in view
-            if (scrollTop >= childTop - (containerHeight * 0.4) && 
-                scrollTop < childTop + childHeight - (containerHeight * 0.4)) {
-              
-              if (i !== currentPageIndex) {
-                currentPageIndex = i;
-                links.forEach((link, index) => {
-                  link.classList.toggle('active', index === currentPageIndex);
-                });
-              }
-              break;
-            }
+      const handleScroll = () => {
+        const scrollTop = contentContainer.scrollTop;
+        let pageIndex = -1;
+        for (let i = 0; i < contentContainer.children.length; i++) {
+          const child = contentContainer.children[i];
+          const childTop = child.offsetTop;
+          const childHeight = child.offsetHeight;
+          if (scrollTop >= childTop - 50 && scrollTop < childTop + childHeight - 50) {
+            pageIndex = i;
+            break;
           }
-        }, 100);
-      }
+        }
+        if (pageIndex !== -1 && pageIndex !== currentPageIndex) {
+          currentPageIndex = pageIndex;
+          links.forEach((link, index) => link.classList.toggle('active', index === currentPageIndex));
+        }
+      };
 
       contentContainer.addEventListener('scroll', handleScroll);
+      links[0].classList.add('active');
       
       // Setup share links
       const portfolioUrl = "https://sujith1546.github.io/portfolio/portfolio/index.html#";
