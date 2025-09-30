@@ -158,6 +158,13 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
+    .submit-btn:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
     .status-message {
       margin-top: 1rem;
       font-size: 0.9rem;
@@ -220,7 +227,7 @@
         <textarea id="message" name="message" placeholder=" " rows="5" required></textarea>
         <label for="message">Message</label>
       </div>
-      <button type="submit" class="submit-btn">Send Message</button>
+      <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
     </form>
     <div id="status-message" class="status-message"></div>
 
@@ -237,24 +244,52 @@
   <script>
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
 
       if (!name || !email || !message) {
         showStatusMessage('Please fill out all fields.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
         return;
       }
 
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showStatusMessage('Please enter a valid email address.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
         return;
       }
 
-      setTimeout(() => {
+      // Use EmailJS to send the email
+      emailjs.send("service_0ntxmig", "template_qqd9o8j", {
+        from_name: name,
+        from_email: email,
+        message: message,
+        to_email: "sujithreddy1546@gmail.com"
+      })
+      .then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
         showStatusMessage('Message sent successfully!', 'success');
         document.getElementById('contact-form').reset();
-      }, 1000);
+      }, function(error) {
+        console.log("FAILED...", error);
+        showStatusMessage('Failed to send message. Please try again later.', 'error');
+      })
+      .finally(function() {
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
     });
 
     function showStatusMessage(msg, type) {
@@ -262,6 +297,15 @@
       status.textContent = msg;
       status.className = `status-message ${type}`;
     }
+  </script>
+  
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init("YRRtYb8kmT-FcjoRq"); // Replace with your actual EmailJS public key
+    })();
   </script>
 </body>
 </html>
